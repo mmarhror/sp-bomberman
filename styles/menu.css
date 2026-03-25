@@ -1,0 +1,225 @@
+/* 1. The Overlay */
+#pause-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Darker overlay with blur for focus */
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px); /* The "Glass" effect */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+
+  display: none; /* Toggled via JS */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* 2. The Menu Box */
+.pause-content {
+  background-color: #111;
+  padding: 40px 60px;
+  border: 4px solid #39ff14;
+  border-radius: 4px; /* Slightly sharper corners fit retro styles better */
+
+  /* Enhanced Glow */
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.4),
+    inset 0 0 20px rgba(57, 255, 20, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  min-width: 320px;
+
+  /* Animation: Menu pops up slightly */
+  animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 3. The Title */
+.pause-content h2 {
+  color: #ffff00;
+  font-family: "Press Start 2P", monospace; /* Safe fallback */
+  font-size: 36px; /* Slightly larger */
+
+  /* Sharper retro shadow */
+  text-shadow: 4px 4px #cc0000, 0 0 15px rgba(255, 255, 0, 0.6);
+
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+  user-select: none; /* Prevents clumsy text highlighting */
+}
+
+/* 4. The Buttons */
+.pause-content button {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: #39ff14;
+  background: transparent;
+  border: 2px solid #39ff14;
+  padding: 15px 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  /* Smooth transitions for hover/active */
+  transition: all 0.15s ease-in-out;
+  outline: none; /* Remove default blue browser outline */
+  position: relative;
+}
+
+/* Hover State */
+.pause-content button:hover {
+  background: #39ff14;
+  color: #000;
+  box-shadow: 0 0 15px #39ff14;
+  transform: translateY(-2px); /* Slight lift */
+}
+
+/* Active State (Clicking down) */
+.pause-content button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 0 5px #39ff14;
+}
+
+/* Focus State (For keyboard navigation) */
+.pause-content button:focus-visible {
+  background: rgba(57, 255, 20, 0.2);
+  box-shadow: 0 0 15px #39ff14, inset 0 0 10px #39ff14;
+}
+
+/* 5. Mobile Adjustments */
+@media (max-width: 600px) {
+  .pause-content {
+    width: 85%;
+    padding: 30px 20px;
+    min-width: auto;
+  }
+
+  .pause-content h2 {
+    font-size: 24px;
+    text-shadow: 2px 2px #cc0000;
+  }
+
+  .pause-content button {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+/* 6. Keyframe Animation */
+@keyframes menuPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reuse the overlay style from the pause menu */
+#game-over-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Slightly darker for Game Over */
+  backdrop-filter: blur(8px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000; /* Higher Z-index than pause menu */
+}
+
+.game-over-content {
+  /* Reuse pause-content styles or customize */
+  background-color: #111;
+  border: 4px solid #ff0000; /* Red border for Game Over */
+  padding: 40px 60px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  animation: dropIn 0.5s ease-out;
+}
+
+.game-over-content h2 {
+  color: #ff0000; /* Red Text */
+  font-family: "Press Start 2P", monospace;
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-shadow: 4px 4px #000;
+}
+
+.final-stats {
+  font-family: "Press Start 2P", monospace;
+  color: #fff;
+  margin-bottom: 30px;
+  line-height: 1.8;
+}
+
+.final-stats span {
+  color: #ffff00; /* Highlight numbers in Yellow */
+}
+
+/* Button styles (reuse pause menu button styles) */
+.game-over-buttons button {
+  font-family: "Press Start 2P", monospace;
+  background: transparent;
+  color: #ff0000;
+  border: 2px solid #ff0000;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.game-over-buttons button:hover {
+  background: #ff0000;
+  color: #000;
+  box-shadow: 0 0 15px #ff0000;
+}
+
+@keyframes dropIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* WIN STATE STYLING */
+.game-over-content.win {
+  border: 4px solid #00ff00 !important; /* Green border for Win */
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.6) !important;
+  animation: victoryPulse 0.5s ease-out, dropIn 0.5s ease-out !important;
+}
+
+.game-over-content.win h2 {
+  color: #00ff00 !important; /* Green Text for Win */
+  text-shadow: 4px 4px #000, 0 0 20px rgba(0, 255, 0, 0.8) !important;
+}
+
+.game-over-content.win .game-over-buttons button {
+  color: #00ff00 !important;
+  border: 2px solid #00ff00 !important;
+}
+
+.game-over-content.win .game-over-buttons button:hover {
+  background: #00ff00 !important;
+  color: #000 !important;
+  box-shadow: 0 0 15px #00ff00 !important;
+}
+
+@keyframes victoryPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

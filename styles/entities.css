@@ -1,0 +1,70 @@
+.block {
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.wall {
+  background: url(../assets/fonts/tile_wall.png);
+}
+
+.grass {
+  background: url(../assets/fonts/tile_grass.png);
+}
+
+.wood {
+  background: url(../assets/fonts/tile_wood.png);
+}
+
+.player {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+
+  background-image: url(../assets/sprites/george.png);
+  background-size: 192px 240px;
+  background-position: 0px 0;
+  z-index: 10;
+
+  image-rendering: pixelated;
+  will-change: transform;
+}
+
+.enemy {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+
+  background-image: url(../assets/sprites/betty.png);
+  background-size: 192px 240px;
+  background-position: 0px 0px;
+
+  image-rendering: pixelated;
+  will-change: transform;
+}
+
+.bomb {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+
+  background-image: url(../assets/sprites/bomb.png);
+  background-size: 500% 100%;
+  background-position: 0 0;
+
+  image-rendering: pixelated;
+  will-change: transform;
+}
+
+.fire {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+
+  background-image: url(../assets/sprites/fire.png);
+  background-size: 350px 50px;
+  background-position: 0 0;
+
+  image-rendering: pixelated;
+  will-change: transform;
+}

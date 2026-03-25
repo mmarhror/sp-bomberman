@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/menu.css" />
+    <link rel="stylesheet" href="styles/entities.css" />
+    <title>DOM-BERMAN</title>
+  </head>
+  <body>
+    <!-- Main container: HUD + game side by side -->
+    <div class="main-container">
+      <!-- HUD on the left -->
+      <div class="hud-container">
+        <p class="title">DOM-BERMAN</p>
+
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="label">SCORE</span>
+            <span class="value" id="score">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">TIME</span>
+            <span class="value" id="time">2:05</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">LIVES</span>
+            <span class="value" id="lives">3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game container -->
+      <div id="game-container">
+        <div id="grid-layer"></div>
+        <div id="entity-layer"></div>
+      </div>
+    </div>
+
+    <!-- Pause menu -->
+    <div id="pause-menu" class="hidden">
+      <div class="pause-content">
+        <h2>PAUSED</h2>
+        <div class="pause-buttons">
+          <button id="btn-resume">RESUME</button>
+          <button id="btn-restart">RESTART</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME OVER MENU -->
+    <div id="game-over-menu" class="hidden" style="display: none">
+      <div class="game-over-content">
+        <h2>GAME OVER</h2>
+
+        <div class="final-stats">
+          <p>SCORE: <span id="go-score">0</span></p>
+          <p id="go-reason"></p>
+        </div>
+
+        <div class="game-over-buttons">
+          <button id="btn-play-again">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="src/main.js" type="module"></script>
+  </body>
+</html>

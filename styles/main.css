@@ -1,0 +1,188 @@
+/* Body background and arcade font */
+body {
+  background-image: url(../assets/fonts/background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* FIXED HEIGHT & NO SCROLL */
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; /* Stops scrollbars */
+  margin: 0;
+
+  /* LAYOUT ALIGNMENT */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Pushes content to the top */
+  padding-top: 30px; /* Small margin from the top edge */
+
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+  image-rendering: pixelated;
+  box-sizing: border-box;
+}
+
+/* Main horizontal layout: HUD + game */
+.main-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start; /* Align tops of HUD and Game */
+}
+
+/* HUD container - SIDEBAR */
+.hud-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 220px;
+  height: 500px; /* EXACT MATCH to Game Height (10 * 50px) */
+
+  flex-shrink: 0;
+}
+
+/* Game title */
+.title {
+  font-size: 20px;
+  color: #ffff00;
+  text-shadow: 3px 3px #cc0000, 0 0 10px rgba(255, 255, 0, 0.4);
+  margin: 0 0 15px 0; /* Reduced margin */
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Stats bar - VERTICAL STACK */
+.stats-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  height: 100%; /* Fills the rest of the sidebar */
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  padding: 20px 15px;
+  border: 4px solid #39ff14;
+  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.3),
+    0 0 20px rgba(57, 255, 20, 0.4);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Corner brackets */
+.stats-bar::before,
+.stats-bar::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 3px solid #ffff00;
+}
+
+.stats-bar::before {
+  top: -6px;
+  left: -6px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.stats-bar::after {
+  bottom: -6px;
+  right: -6px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Individual stat item */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1; /* Makes them share available vertical space equally */
+}
+
+/* Label styling */
+.label {
+  font-size: 10px;
+  color: #ffff00;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px #cc0000, 0 0 6px rgba(255, 255, 0, 0.4);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Value styling with neon glow */
+.value {
+  font-size: 16px;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.4),
+    2px 2px 0 rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-family: "Press Start 2P", cursive;
+  animation: neon-flicker 3s infinite;
+}
+
+@keyframes neon-flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.8),
+      0 0 20px rgba(57, 255, 20, 0.4), 2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.4), 0 0 10px rgba(57, 255, 20, 0.2),
+      2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Make the game area content exactly 750×500 */
+#game-container {
+  position: relative;
+  box-sizing: content-box; /* override body’s border-box */
+  width: 750px; /* 15 * 50 */
+  height: 500px; /* 10 * 50 */
+  background-color: black;
+  border: 4px solid #333;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Both layers: same size, same position */
+#grid-layer,
+#entity-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 750px;
+  height: 500px;
+  box-sizing: content-box;
+}
+
+/* Grid definition */
+#grid-layer {
+  display: grid;
+  grid-template-columns: repeat(15, 50px);
+  grid-template-rows: repeat(10, 50px);
+  z-index: 0;
+}
+
+/* Entity layer on top of grid */
+#entity-layer {
+  z-index: 1;
+}

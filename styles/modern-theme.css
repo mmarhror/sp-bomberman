@@ -1,0 +1,311 @@
+/* 
+ * MODERN THEME - Optional Enhancement
+ * Add this file to index.html AFTER the original CSS files to apply modern styling
+ * The original game functionality remains unchanged
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Override body background with modern gradient */
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background-attachment: fixed !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Modern HUD Title */
+.title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Modern Stats Bar - Glassmorphism */
+.stats-bar {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Remove corner brackets */
+.stats-bar::before,
+.stats-bar::after {
+  display: none !important;
+}
+
+/* Modern Stat Items */
+.stat-item {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Modern Labels */
+.label {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-shadow: none !important;
+}
+
+/* Modern Values */
+.value {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  text-shadow: none !important;
+  animation: none !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.2s ease !important;
+}
+
+.stat-item:hover .value {
+  transform: scale(1.05) !important;
+}
+
+/* Modern Game Container */
+#game-container {
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+  overflow: hidden !important;
+}
+
+/* Modern Pause Menu */
+#pause-menu {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.pause-content {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.pause-content h2 {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 42px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.pause-content button {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.pause-content button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.pause-content button:active {
+  transform: translateY(0px) scale(0.98) !important;
+}
+
+/* Modern Game Over Menu */
+#game-over-menu {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.game-over-content {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 82, 82, 0.3) !important;
+  box-shadow: 0 20px 60px rgba(255, 82, 82, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.game-over-content h2 {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  color: #ff5252 !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 4px 12px rgba(255, 82, 82, 0.4));
+}
+
+.final-stats {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.final-stats span {
+  color: #ffd93d !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+}
+
+.game-over-buttons button {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  background: rgba(255, 82, 82, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  color: #ff5252 !important;
+  border: 1px solid rgba(255, 82, 82, 0.4) !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.game-over-buttons button:hover {
+  background: rgba(255, 82, 82, 0.3) !important;
+  border-color: rgba(255, 82, 82, 0.6) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(255, 82, 82, 0.3) !important;
+  color: #ff5252 !important;
+}
+
+/* Modern Entity Effects */
+.player {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.enemy {
+  filter: drop-shadow(0 4px 8px rgba(255, 82, 82, 0.4)) !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: enemyBreath 2s ease-in-out infinite !important;
+}
+
+@keyframes enemyBreath {
+  0%, 100% {
+    filter: drop-shadow(0 4px 8px rgba(255, 82, 82, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 6px 12px rgba(255, 82, 82, 0.6));
+  }
+}
+
+.bomb {
+  filter: drop-shadow(0 4px 12px rgba(255, 193, 7, 0.5)) !important;
+  animation: bombPulse 1s ease-in-out infinite !important;
+}
+
+@keyframes bombPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 12px rgba(255, 193, 7, 0.5));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 6px 16px rgba(255, 193, 7, 0.8));
+  }
+}
+
+.fire {
+  filter: drop-shadow(0 0 12px rgba(255, 87, 34, 0.8)) drop-shadow(0 0 24px rgba(255, 193, 7, 0.5)) !important;
+  animation: fireFlicker 0.3s ease-in-out infinite !important;
+}
+
+@keyframes fireFlicker {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(255, 87, 34, 0.8)) drop-shadow(0 0 24px rgba(255, 193, 7, 0.5)) brightness(1.2);
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 87, 34, 1)) drop-shadow(0 0 28px rgba(255, 193, 7, 0.7)) brightness(1.3);
+  }
+}
+
+.wood:hover {
+  filter: brightness(1.2) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Modern Win State Styling */
+.game-over-content.win {
+  border: 1px solid rgba(76, 175, 80, 0.5) !important;
+  box-shadow: 0 20px 60px rgba(76, 175, 80, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), victoryPulse 0.5s ease-out !important;
+}
+
+.game-over-content.win h2 {
+  color: #4caf50 !important;
+  filter: drop-shadow(0 4px 12px rgba(76, 175, 80, 0.6)) !important;
+}
+
+.game-over-content.win .game-over-buttons button {
+  background: rgba(76, 175, 80, 0.2) !important;
+  color: #4caf50 !important;
+  border: 1px solid rgba(76, 175, 80, 0.4) !important;
+}
+
+.game-over-content.win .game-over-buttons button:hover {
+  background: rgba(76, 175, 80, 0.3) !important;
+  border-color: rgba(76, 175, 80, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3) !important;
+}
+
+@keyframes victoryPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
