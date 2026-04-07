@@ -1,11 +1,12 @@
 import * as c from "../game/config.js";
 
+// REMOVE: import { player } from "../entities/player.js";
+
 export function updateFrame(entity) {
   entity.frameProg++;
 
   if (entity.frameProg >= c.FRAME_PROG_DURATION) {
     entity.frame = (entity.frame + 1) % 4;
-
     entity.frameProg = 0;
   }
 }
@@ -21,16 +22,15 @@ export function animateFrame(entity) {
   }
 
   let spriteRow = 0;
-
   if (entity.dir === "R") spriteRow = 3 * c.CHAR_FRAME;
   if (entity.dir === "L") spriteRow = 1 * c.CHAR_FRAME;
   if (entity.dir === "U") spriteRow = 2 * c.CHAR_FRAME;
   if (entity.dir === "D") spriteRow = 0;
 
-  if (entity.moving === false) spriteRow = 0;
+  const currentFrame = entity.isMoving === false ? 0 : entity.frame;
 
   entity.elem.style.backgroundPosition = `
-    -${entity.frame * c.CHAR_FRAME}px -${spriteRow}px
+    -${currentFrame * c.CHAR_FRAME}px -${spriteRow}px
   `;
 }
 

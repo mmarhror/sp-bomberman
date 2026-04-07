@@ -39,19 +39,19 @@ function initBomb() {
 }
 
 function updateBombs(dt) {
-  bombsRouter.bombs = bombsRouter.bombs.filter((bomb) => {
-    //
+  for (let i = bombsRouter.bombs.length - 1; i >= 0; i--) {
+    let bomb = bombsRouter.bombs[i];
+
     bomb.timer -= dt;
 
     if (bomb.timer <= 0) {
       firesRouter.init(bomb);
       impactFire();
       bomb.elem.remove();
-      return false;
+
+      bombsRouter.bombs.splice(i, 1);
     }
-    //
-    return true;
-  });
+  }
 }
 
 function animateBombs() {

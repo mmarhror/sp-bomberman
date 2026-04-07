@@ -24,7 +24,7 @@ export const IMMUNITY_TIME = 1.5;
 
 export const ENEMY_SPEED = 60;
 export const ENEMIES_SCORE = 50;
-export const ENEMIES_NUMBER = 4;
+export const ENEMIES_NUMBER = 5;
 
 export const FRAME_PROG_DURATION = 10;
 

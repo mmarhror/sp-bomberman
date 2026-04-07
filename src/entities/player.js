@@ -6,20 +6,26 @@ import { keys } from "../input/input.js";
 import { endGame } from "../game/state.js";
 
 export let player = {
-  posX: 50,
-  posY: 50,
   row: 1,
   col: 1,
+
+  posX: c.CELL_SIZE,
+  posY: c.CELL_SIZE,
+
+  targetRow: 1,
+  targetCol: 1,
+  isMoving: false,
+
   frame: 0,
   frameProg: 0,
   dir: "D",
-
-  moving: false,
 
   score: 0,
   lives: 3,
   immune: false,
   immuneTimer: 0,
+
+  elem: null,
 
   init: initPlayer,
   update: updatePlayer,
@@ -39,67 +45,97 @@ function initPlayer() {
   entityLayer.appendChild(player.elem);
 }
 
-function canMoveTo(x, y) {
-  const margin = 5;
-  const left = x + margin;
-  const right = x + c.CELL_SIZE - margin;
-  const top = y + margin;
-  const bottom = y + c.CELL_SIZE - margin;
-
-  const leftCol = Math.floor(left / c.CELL_SIZE);
-  const rightCol = Math.floor(right / c.CELL_SIZE);
-  const topRow = Math.floor(top / c.CELL_SIZE);
-  const bottomRow = Math.floor(bottom / c.CELL_SIZE);
-
-  for (let row = topRow; row <= bottomRow; row++) {
-    for (let col = leftCol; col <= rightCol; col++) {
-      if (row < 0 || row >= map.length || col < 0 || col >= map[0].length)
-        return false;
-      if (map[row][col] === 1 || map[row][col] === 2) return false;
-    }
+function canMoveToCell(row, col) {
+  if (row < 0 || row >= map.length || col < 0 || col >= map[0].length) {
+    return false;
   }
+
+  if (map[row][col] !== 0) {
+    return false;
+  }
+
   return true;
 }
 
-function updatePlayerGridPosition() {
-  const centerX = player.posX + c.CELL_SIZE / 2;
-  const centerY = player.posY + c.CELL_SIZE / 2;
-  player.row = Math.floor(centerY / c.CELL_SIZE);
-  player.col = Math.floor(centerX / c.CELL_SIZE);
-}
+function setPlayerTarget() {
+  let nextRow = player.row;
+  let nextCol = player.col;
+  let attemptedDir = null;
 
-function getPlayerInput(dx = 0, dy = 0) {
   if (keys.w || keys.ArrowUp) {
-    dy = -1;
-    player.dir = "U";
-  }
-  if (keys.s || keys.ArrowDown) {
-    dy = 1;
-    player.dir = "D";
-  }
-  if (keys.a || keys.ArrowLeft) {
-    dx = -1;
-    player.dir = "L";
-  }
-  if (keys.d || keys.ArrowRight) {
-    dx = 1;
-    player.dir = "R";
+    nextRow--;
+    attemptedDir = "U";
+  } else if (keys.s || keys.ArrowDown) {
+    nextRow++;
+    attemptedDir = "D";
+  } else if (keys.a || keys.ArrowLeft) {
+    nextCol--;
+    attemptedDir = "L";
+  } else if (keys.d || keys.ArrowRight) {
+    nextCol++;
+    attemptedDir = "R";
   }
 
-  return { dx, dy };
-}
+  if (attemptedDir) {
+    player.dir = attemptedDir;
 
-function updatePlayerAnimation(dx, dy) {
-  player.moving = dx !== 0 || dy !== 0;
-
-  if (player.moving) {
-    utils.updateFrame(player);
-  } else {
-    player.frame = 0;
-    player.frameProg = 0;
+    if (canMoveToCell(nextRow, nextCol)) {
+      //
+      player.targetRow = nextRow;
+      player.targetCol = nextCol;
+      player.isMoving = true;
+      //
+    }
   }
 }
 
+function movePlayer(dt) {
+  const speed = c.PLAYER_SPEED * dt;
+
+  if (player.dir === "U") {
+    player.posY -= speed;
+    if (player.posY <= player.targetRow * c.CELL_SIZE) finishMove();
+  }
+
+  if (player.dir === "D") {
+    player.posY += speed;
+    if (player.posY >= player.targetRow * c.CELL_SIZE) finishMove();
+  }
+
+  if (player.dir === "R") {
+    player.posX += speed;
+    if (player.posX >= player.targetCol * c.CELL_SIZE) finishMove();
+  }
+
+  if (player.dir === "L") {
+    player.posX -= speed;
+    if (player.posX <= player.targetCol * c.CELL_SIZE) finishMove();
+  }
+
+  utils.updateFrame(player);
+}
+
+function finishMove() {
+  player.posX = player.targetCol * c.CELL_SIZE;
+  player.posY = player.targetRow * c.CELL_SIZE;
+
+  player.row = player.targetRow;
+  player.col = player.targetCol;
+
+  player.isMoving = false;
+}
+
+function updatePlayer(dt) {
+  if (player.isMoving) {
+    movePlayer(dt);
+  }
+
+  if (!player.isMoving) {
+    setPlayerTarget();
+  }
+
+  updatePlayerImmunity(dt);
+}
 function updatePlayerImmunity(dt) {
   if (player.immune) {
     player.immuneTimer -= dt;
@@ -109,28 +145,12 @@ function updatePlayerImmunity(dt) {
   }
 }
 
-function updatePlayer(dt) {
-  let { dx, dy } = getPlayerInput();
-
-  const moveAmount = c.PLAYER_SPEED * dt;
-
-  const newX = player.posX + dx * moveAmount;
-  const newY = player.posY + dy * moveAmount;
-
-  if (canMoveTo(newX, newY)) {
-    player.posX = newX;
-    player.posY = newY;
-
-    updatePlayerGridPosition();
-  }
-
-  updatePlayerAnimation(dx, dy);
-  updatePlayerImmunity(dt);
-}
-
 function animatePlayer() {
+  let x = player.posX | 0;
+  let y = player.posY | 0;
+
   player.elem.style.transform = `
-  translate(${Math.round(player.posX)}px, ${Math.round(player.posY)}px)
+  translate(${x}px, ${y}px)
   `;
 
   utils.animateFrame(player);
@@ -152,7 +172,7 @@ function resetPlayer() {
   player.row = 1;
   player.col = 1;
 
-  player.moving = false;
+  player.isMoving = false;
   player.dir = "D";
 
   player.frame = 0;

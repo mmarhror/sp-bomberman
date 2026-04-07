@@ -57,6 +57,8 @@ function initEnemies() {
       posX: col * c.CELL_SIZE,
       dir: "R",
 
+      isMoving: true,
+
       elem: enemy,
 
       frame: 1,
@@ -177,17 +179,18 @@ function animateEnemies() {
 }
 
 function removeEnemies(firesPos) {
-  enemiesRouter.enemies = enemiesRouter.enemies.filter((enemy) => {
+  for (let i = enemiesRouter.enemies.length - 1; i >= 0; i--) {
+    let enemy = enemiesRouter.enemies[i];
+
     let enemyPos = `${enemy.row} ${enemy.col}`;
 
     if (enemyPos in firesPos) {
       enemy.elem.remove();
       player.score += c.ENEMIES_SCORE;
-      return false;
-    }
 
-    return true;
-  });
+      enemiesRouter.enemies.splice(i, 1);
+    }
+  }
 
   if (enemiesRouter.enemies.length === 0) {
     endGame("YOU WIN! All enemies defeated!");

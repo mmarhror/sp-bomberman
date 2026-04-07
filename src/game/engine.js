@@ -55,13 +55,12 @@ function gameLoop(timestamp) {
     updateHud();
     updateEntities(dt);
     animateEntities();
-        
   }
 
   if (gameState.paused) {
     hud.showPauseMenu();
   } else {
-    hud.hidePauseMenu()
+    hud.hidePauseMenu();
   }
 
   requestAnimationFrame(gameLoop);

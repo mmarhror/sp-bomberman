@@ -86,17 +86,16 @@ function removeFire(fire) {
 }
 
 function updateFires() {
-  firesRouter.fires = firesRouter.fires.filter((fire) => {
-    //
+  for (let i = firesRouter.fires.length - 1; i >= 0; i--) {
+    let fire = firesRouter.fires[i];
+
     if (fire.frame >= 6) {
       removeFire(fire);
-      return false;
+
+      firesRouter.fires.splice(i, 1);
     }
-
-    return true;
-  });
+  }
 }
-
 function animateFires() {
   firesRouter.fires.forEach((fire) => {
     //
